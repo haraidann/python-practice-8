@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Древний Свиток</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=Oldenburg&display=swap');
+        
+        body {
+            font-family: 'Oldenburg', cursive;
+            background: #1a1410;
+            margin: 0;
+            padding: 40px;
+            color: #d4c5a0;
+        }
+        
+        .scroll-container {
+            max-width: 850px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .scroll {
+            background: 
+                linear-gradient(180deg, 
+                    rgba(139, 69, 19, 0.3) 0%,
+                    transparent 10%,
+                    transparent 90%,
+                    rgba(139, 69, 19, 0.3) 100%),
+                url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" /></filter><rect width="100" height="100" filter="url(%23noise)" opacity="0.05"/></svg>'),
+                linear-gradient(90deg, #2a1f15 0%, #3d2f1f 50%, #2a1f15 100%);
+            padding: 60px 50px;
+            border: 3px solid #4a3520;
+            box-shadow: 
+                inset 0 0 50px rgba(0,0,0,0.5),
+                0 20px 50px rgba(0,0,0,0.8);
+            position: relative;
+        }
+        
+        .scroll::before,
+        .scroll::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 30px;
+            background: repeating-linear-gradient(
+                90deg,
+                #8B4513 0px,
+                #A0522D 2px,
+                #8B4513 4px
+            );
+            border: 2px solid #5c3d1f;
+        }
+        
+        .scroll::before {
+            top: 0;
+            transform: translateY(-50%);
+        }
+        
+        .scroll::after {
+            bottom: 0;
+            transform: translateY(50%);
+        }
+        
+        .mystical-border {
+            border: 2px solid #8B7355;
+            padding: 30px;
+            margin: 20px 0;
+            background: rgba(0,0,0,0.2);
+            box-shadow: inset 0 0 20px rgba(139, 115, 85, 0.3);
+        }
+        
+        .runes {
+            text-align: center;
+            font-size: 30px;
+            color: #8B7355;
+            margin: 20px 0;
+            letter-spacing: 15px;
+            opacity: 0.7;
+            text-shadow: 0 0 10px rgba(139, 115, 85, 0.5);
+        }
+        
+        h1 {
+            font-family: 'UnifrakturMaguntia', cursive;
+            text-align: center;
+            color: #d4a574;
+            font-size: 48px;
+            margin: 30px 0;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            text-shadow: 
+                2px 2px 4px rgba(0,0,0,0.8),
+                0 0 20px rgba(212, 165, 116, 0.3);
+        }
+        
+        .scroll-id {
+            text-align: center;
+            font-size: 14px;
+            color: #8B7355;
+            margin-bottom: 30px;
+            font-style: italic;
+            letter-spacing: 2px;
+        }
+        
+        .ancient-symbol {
+            text-align: center;
+            font-size: 60px;
+            margin: 20px 0;
+            color: #d4a574;
+            text-shadow: 0 0 20px rgba(212, 165, 116, 0.5);
+            animation: pulse 3s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 1; }
+        }
+        
+        .property {
+            margin: 25px 0;
+            padding: 15px;
+            background: rgba(139, 115, 85, 0.1);
+            border-left: 4px solid #8B7355;
+        }
+        
+        .property-label {
+            font-family: 'UnifrakturMaguntia', cursive;
+            color: #d4a574;
+            font-size: 18px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+        }
+        
+        .property-value {
+            color: #c4b5a0;
+            font-size: 16px;
+            line-height: 1.6;
+            padding-left: 15px;
+        }
+        
+        .difficulty-orb {
+            display: inline-block;
+            padding: 10px 25px;
+            background: radial-gradient(circle, #4a1f1f 0%, #2a0f0f 100%);
+            color: #ff6b6b;
+            border: 2px solid #8B7355;
+            border-radius: 20px;
+            font-weight: bold;
+            box-shadow: 
+                inset 0 0 15px rgba(255, 107, 107, 0.3),
+                0 0 20px rgba(255, 107, 107, 0.2);
+            text-shadow: 0 0 10px rgba(255, 107, 107, 0.8);
+        }
+        
+        .reward-glow {
+            display: inline-block;
+            padding: 15px 30px;
+            background: radial-gradient(circle, #3d2f1f 0%, #2a1f15 100%);
+            color: #FFD700;
+            border: 2px solid #8B7355;
+            font-size: 24px;
+            font-weight: bold;
+            box-shadow: 
+                inset 0 0 20px rgba(255, 215, 0, 0.3),
+                0 0 30px rgba(255, 215, 0, 0.2);
+            text-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
+            margin: 10px 0;
+        }
+        
+        .prophecy {
+            margin: 40px 0;
+            padding: 30px;
+            background: rgba(0,0,0,0.4);
+            border: 2px double #8B7355;
+            position: relative;
+        }
+        
+        .prophecy::before {
+            content: '✦';
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 30px;
+            color: #d4a574;
+            background: #2a1f15;
+            padding: 0 15px;
+        }
+        
+        .prophecy-title {
+            font-family: 'UnifrakturMaguntia', cursive;
+            text-align: center;
+            color: #d4a574;
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+        
+        .prophecy-text {
+            color: #c4b5a0;
+            font-size: 15px;
+            line-height: 2;
+            text-align: justify;
+            text-indent: 30px;
+        }
+        
+        .warning-seal {
+            margin: 40px auto;
+            width: 200px;
+            height: 200px;
+            border: 5px solid #8B7355;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(circle, #3d2f1f 0%, #1a1410 100%);
+            box-shadow: 
+                inset 0 0 30px rgba(139, 115, 85, 0.3),
+                0 0 40px rgba(139, 115, 85, 0.2);
+            position: relative;
+        }
+        
+        .warning-seal::before {
+            content: '☠';
+            font-size: 80px;
+            color: #8B7355;
+            opacity: 0.3;
+            position: absolute;
+        }
+        
+        .seal-text {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            color: #d4a574;
+            font-family: 'UnifrakturMaguntia', cursive;
+            font-size: 16px;
+            text-transform: uppercase;
+        }
+        
+        .qr-mystery {
+            text-align: center;
+            margin: 40px 0;
+            padding: 30px;
+            background: rgba(0,0,0,0.3);
+            border: 2px dashed #8B7355;
+        }
+        
+        .qr-mystery h3 {
+            font-family: 'UnifrakturMaguntia', cursive;
+            color: #d4a574;
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .qr-mystery img {
+            max-width: 200px;
+            border: 3px solid #8B7355;
+            padding: 10px;
+            background: rgba(212, 197, 160, 0.1);
+            box-shadow: 0 0 30px rgba(139, 115, 85, 0.5);
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid #8B7355;
+            font-size: 12px;
+            color: #8B7355;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="scroll-container">
+        <div class="scroll">
+            <div class="runes">᚛ ᚐ ᚑ ᚒ ᚓ ᚔ ᚕ ᚖ ᚗ ᚘ ᚙ ᚚ ᚜</div>
+            
+            <div class="ancient-symbol">☥</div>
+            
+            <h1>{{ quest.title }}</h1>
+            
+            <div class="scroll-id">⟨ Свиток № {{ quest.id }} ⟩</div>
+            
+            <div class="mystical-border">
+                <div class="property">
+                    <div class="property-label">⚔ Уровень Испытания</div>
+                    <div class="property-value">
+                        <span class="difficulty-orb">{{ quest.difficulty }}</span>
+                    </div>
+                </div>
+                
+                <div class="property">
+                    <div class="property-label">✦ Древняя Награда</div>
+                    <div class="property-value">
+                        <span class="reward-glow">{{ quest.reward }} 🜛</span>
+                    </div>
+                </div>
+                
+                <div class="property">
+                    <div class="property-label">⧗ Предначертанный Срок</div>
+                    <div class="property-value">{{ quest.deadline }}</div>
+                </div>
+            </div>
+            
+            <div class="prophecy">
+                <div class="prophecy-title">⟨ Пророчество ⟩</div>
+                <div class="prophecy-text">
+                    {{ quest.description }}
+                </div>
+            </div>
+            
+            {% if qr_img_data %}
+            <div class="qr-mystery">
+                <h3>⟨ Мистический Знак ⟩</h3>
+                <p style="color: #8B7355; font-size: 13px; margin-bottom: 15px;">
+                    Начертание для связи с потусторонним
+                </p>
+                <img src="{{ qr_img_data }}" alt="Mystical QR" />
+            </div>
+            {% endif %}
+            
+            <div class="warning-seal">
+                <div class="seal-text">
+                    Печать<br>
+                    Древних<br>
+                    ☥
+                </div>
+            </div>
+            
+            <div class="runes">᚛ ᚐ ᚑ ᚒ ᚓ ᚔ ᚕ ᚖ ᚗ ᚘ ᚙ ᚚ ᚜</div>
+            
+            <div class="footer">
+                Записано в {{ now }}<br>
+                Да будет воля древних исполнена
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Королевский Указ</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap');
+        
+        body {
+            font-family: 'Cinzel', serif;
+            background: linear-gradient(135deg, #f4e4bc 0%, #e8d4a0 100%);
+            margin: 40px;
+            padding: 0;
+            color: #2c1810;
+        }
+        
+        .parchment {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fdf8e8;
+            padding: 60px;
+            border: 3px solid #8B0000;
+            box-shadow: 0 0 30px rgba(139, 0, 0, 0.3);
+            position: relative;
+        }
+        
+        .parchment::before,
+        .parchment::after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            background: #8B0000;
+            border: 2px solid #FFD700;
+        }
+        
+        .parchment::before {
+            top: -10px;
+            left: -10px;
+            clip-path: polygon(0 0, 100% 0, 100% 100%);
+        }
+        
+        .parchment::after {
+            bottom: -10px;
+            right: -10px;
+            clip-path: polygon(0 100%, 100% 0, 100% 100%);
+        }
+        
+        .crown {
+            text-align: center;
+            font-size: 60px;
+            margin-bottom: 20px;
+            color: #FFD700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #8B0000;
+            font-size: 42px;
+            margin: 20px 0;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            border-bottom: 3px double #8B0000;
+            padding-bottom: 15px;
+        }
+        
+        .quest-id {
+            text-align: center;
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+        
+        .section {
+            margin: 25px 0;
+            line-height: 1.8;
+        }
+        
+        .label {
+            font-weight: 700;
+            color: #8B0000;
+            text-transform: uppercase;
+            font-size: 16px;
+            letter-spacing: 1px;
+        }
+        
+        .value {
+            margin-left: 10px;
+            font-size: 18px;
+        }
+        
+        .difficulty-badge {
+            display: inline-block;
+            padding: 5px 15px;
+            background: #8B0000;
+            color: #FFD700;
+            border-radius: 5px;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+        
+        .description {
+            background: rgba(255, 255, 255, 0.5);
+            padding: 20px;
+            border-left: 5px solid #8B0000;
+            margin: 30px 0;
+            font-size: 16px;
+            line-height: 1.9;
+            text-align: justify;
+        }
+        
+        .seal-container {
+            text-align: center;
+            margin-top: 50px;
+        }
+        
+        .seal {
+            width: 150px;
+            height: 150px;
+            border: 8px solid #8B0000;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(circle, #FFD700 0%, #FFA500 100%);
+            font-size: 14px;
+            font-weight: bold;
+            color: #8B0000;
+            box-shadow: 0 5px 20px rgba(139, 0, 0, 0.5);
+            position: relative;
+        }
+        
+        .seal::before {
+            content: '⚜';
+            font-size: 80px;
+            position: absolute;
+            opacity: 0.3;
+        }
+        
+        .seal-text {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 12px;
+            color: #666;
+            font-style: italic;
+        }
+        
+        .qr-section {
+            text-align: center;
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(255,255,255,0.7);
+            border: 2px dashed #8B0000;
+        }
+        
+        .qr-section img {
+            max-width: 200px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="parchment">
+        <div class="crown">👑</div>
+        
+        <h1>Королевский Указ</h1>
+        
+        <div class="quest-id">Официальный документ №{{ quest.id }}</div>
+        
+        <div class="section">
+            <span class="label">Наименование Квеста:</span>
+            <span class="value">{{ quest.title }}</span>
+        </div>
+        
+        <div class="section">
+            <span class="label">Уровень Сложности:</span>
+            <span class="difficulty-badge">{{ quest.difficulty }}</span>
+        </div>
+        
+        <div class="section">
+            <span class="label">Королевская Награда:</span>
+            <span class="value">{{ quest.reward }} золотых монет</span>
+        </div>
+        
+        <div class="section">
+            <span class="label">Срок Исполнения:</span>
+            <span class="value">{{ quest.deadline }}</span>
+        </div>
+        
+        <div class="description">
+            <p><strong>Описание задания от Его Величества:</strong></p>
+            <p>{{ quest.description }}</p>
+        </div>
+        
+        {% if qr_img_data %}
+        <div class="qr-section">
+            <p><strong>Королевский QR-код для верификации:</strong></p>
+            <img src="{{ qr_img_data }}" alt="Quest QR Code" />
+        </div>
+        {% endif %}
+        
+        <div class="seal-container">
+            <div class="seal">
+                <div class="seal-text">
+                    КОРОЛЕВСКАЯ<br>
+                    ПЕЧАТЬ<br>
+                    ⚜
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            Издано {{ now }}<br>
+            Королевство требует безоговорочного исполнения данного указа
+        </div>
+    </div>
+</body>
+</html>

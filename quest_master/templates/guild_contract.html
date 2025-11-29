@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Контракт Гильдии</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=MedievalSharp&family=Cinzel:wght@600&family=Uncial+Antiqua&display=swap');
+
+        body {
+            margin: 0;
+            padding: 30px;
+            background: #0c0c0c;
+            color: #d4c5a0;
+            font-family: 'Cinzel', serif;
+        }
+
+        .contract {
+            max-width: 900px;
+            margin: 0 auto;
+            background: linear-gradient(180deg, #1a120d 0%, #2d2015 100%);
+            border: 6px double #8b6f47;
+            padding: 70px 60px 90px;
+            position: relative;
+            box-shadow: 
+                0 0 40px rgba(0,0,0,0.9),
+                inset 0 0 80px rgba(139, 69, 19, 0.2);
+        }
+
+        /* Угловые металлические пластины */
+        .contract::before,
+        .contract::after {
+            content: '';
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #4a4a4a, #222);
+            border: 4px solid #8b6f47;
+        }
+        .contract::before {
+            top: -12px;
+            left: -12px;
+            clip-path: polygon(0 0, 100% 0, 0 100%);
+        }
+        .contract::after {
+            bottom: -12px;
+            right: -12px;
+            clip-path: polygon(100% 100%, 100% 0, 0 100%);
+        }
+
+        .guild-emblem {
+            text-align: center;
+            font-size: 90px;
+            margin-bottom: 10px;
+            color: #8b6f47;
+            text-shadow: 0 0 20px #8b6f47;
+        }
+
+        h1 {
+            font-family: 'MedievalSharp', cursive;
+            text-align: center;
+            color: #c9a66b;
+            font-size: 44px;
+            letter-spacing: 6px;
+            margin: 15px 0 30px;
+            text-transform: uppercase;
+            border-bottom: 2px solid #8b6f47;
+            padding-bottom: 15px;
+        }
+
+        .contract-id {
+            text-align: center;
+            color: #8b7355;
+            font-style: italic;
+            letter-spacing: 3px;
+            margin-bottom: 40px;
+        }
+
+        .info-grid {
+            display: table;
+            width: 100%;
+            margin: 30px 0;
+            border-collapse: separate;
+            border-spacing: 15px 20px;
+        }
+
+        .info-row {
+            display: table-row;
+        }
+
+        .info-label, .info-value {
+            display: table-cell;
+            padding: 12px 15px;
+            vertical-align: middle;
+            border-bottom: 1px solid #5a4528;
+        }
+
+        .info-label {
+            font-family: 'Uncial Antiqua', cursive;
+            color: #c9a66b;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            width: 220px;
+            font-size: 17px;
+        }
+
+        .info-value {
+            font-size: 18px;
+            color: #e8d9b8;
+            background: rgba(139, 69, 19, 0.15);
+            border-left: 3px solid #8b6f47;
+        }
+
+        .difficulty {
+            display: inline-block;
+            padding: 8px 25px;
+            background: #330000;
+            color: #ff4444;
+            border: 2px solid #8b6f47;
+            border-radius: 8px;
+            font-weight: bold;
+            text-shadow: 0 0 10px #ff0000;
+            box-shadow: 0 0 15px rgba(255,0,0,0.4);
+        }
+
+        .reward {
+            color: #ffaa00;
+            font-size: 26px;
+            font-weight: bold;
+            text-shadow: 0 0 15px #ffaa00;
+        }
+
+        .description {
+            margin: 40px 0;
+            padding: 30px;
+            background: rgba(0,0,0,0.4);
+            border: 2px solid #8b6f47;
+            font-size: 17px;
+            line-height: 1.9;
+            text-align: justify;
+            position: relative;
+        }
+
+        .description::before {
+            content: '⚔';
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1a120d;
+            padding: 0 20px;
+            font-size: 36px;
+            color: #c9a66b;
+        }
+
+        .guild-seal {
+            width: 220px;
+            height: 220px;
+            margin: 50px auto;
+            background: radial-gradient(circle at 30% 30%, #4a3000, #000);
+            border: 8px double #8b6f47;
+            border-radius: 50%;
+            position: relative;
+            box-shadow: 0 0 40px rgba(200,150,50,0.6);
+        }
+
+        .guild-seal::before {
+            content: '🗡';
+            font-size: 100px;
+            color: #444;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0.3;
+        }
+
+        .seal-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: #c9a66b;
+            font-family: 'MedievalSharp', cursive;
+            font-size: 18px;
+            text-transform: uppercase;
+            line-height: 1.4;
+        }
+
+        .blood-stamp {
+            position: absolute;
+            bottom: -30px;
+            right: 60px;
+            color: #550000;
+            font-size: 80px;
+            opacity: 0.4;
+            transform: rotate(-15deg);
+        }
+
+        .qr-section {
+            text-align: center;
+            margin: 40px 0;
+            padding: 25px;
+            border: 3px dashed #8b6f47;
+            background: rgba(139,69,19,0.1);
+        }
+
+        .qr-section img {
+            max-width: 220px;
+            border: 4px solid #8b6f47;
+            padding: 10px;
+            background: #000;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 60px;
+            padding-top: 20px;
+            border-top: 1px solid #5a4528;
+            color: #8b7355;
+            font-size: 13px;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="contract">
+        <div class="guild-emblem">⚔️</div>
+        
+        <h1>Контракт Гильдии</h1>
+        
+        <div class="contract-id">⟨ Реестровый № {{ quest.id }} ⟩</div>
+
+        <div class="info-grid">
+            <div class="info-row">
+                <div class="info-label">Заказчик</div>
+                <div class="info-value">Гильдия «Кровавый Клинок»</div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">Цель</div>
+                <div class="info-value">{{ quest.title }}</div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">Ранг опасности</div>
+                <div class="info-value"><span class="difficulty">{{ quest.difficulty }}</span></div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">Вознаграждение</div>
+                <div class="info-value"><span class="reward">{{ quest.reward }} золотых</span></div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">Крайний срок</div>
+                <div class="info-value">{{ quest.deadline }}</div>
+            </div>
+        </div>
+
+        <div class="description">
+            {{ quest.description }}
+        </div>
+
+        {% if qr_img_data %}
+        <div class="qr-section">
+            <strong>Печать аутентификации Гильдии</strong><br><br>
+            <img src="{{ qr_img_data }}" alt="Guild QR">
+        </div>
+        {% endif %}
+
+        <div class="guild-seal">
+            <div class="seal-text">
+                Печать<br>Гильдии<br>Исполнено<br>или<br>Смерть
+            </div>
+            <div class="blood-stamp">🩸</div>
+        </div>
+
+        <div class="footer">
+            Зарегистрировано {{ now }}<br>
+            Нарушение контракта карается отсечением конечностей и вечным проклятием
+        </div>
+    </div>
+</body>
+</html>
